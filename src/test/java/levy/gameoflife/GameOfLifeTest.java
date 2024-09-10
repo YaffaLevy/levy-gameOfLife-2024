@@ -17,14 +17,16 @@ class GameOfLifeTest {
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0}
         };
+
         game.nextGen();
         String actual = game.toString();
+
         assertEquals(
-                "00000\n" +
-                        "00100\n" +
-                        "00100\n" +
-                        "00100\n" +
-                        "00000\n",
+                "00000\n"
+                        + "00100\n"
+                        + "00100\n"
+                        + "00100\n"
+                        + "00000\n",
                 actual
         );
     }
