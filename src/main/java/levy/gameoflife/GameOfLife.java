@@ -11,6 +11,10 @@ public class GameOfLife {
         grid = new int[height][width];
     }
 
+    public int[][] getGrid() {
+        return grid;
+    }
+
     //next gen method
     public void nextGen() {
         int[][] newGrid = new int[height][width];
@@ -26,10 +30,8 @@ public class GameOfLife {
                     } else {
                         newGrid[i][j] = 1;
                     }
-                } else {
-                    if (liveNeighbors == 3) {
-                        newGrid[i][j] = 1;
-                    }
+                } else if (liveNeighbors == 3) {
+                    newGrid[i][j] = 1;
                 }
             }
         }

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GameOfLifeTest {
 
     @Test
-    public void blinkerPattern() {
+    public void nextGen() {
 
         GameOfLife game = new GameOfLife(5, 5);
         game.grid = new int[][]{
@@ -29,4 +29,3 @@ class GameOfLifeTest {
         );
     }
 }
-
