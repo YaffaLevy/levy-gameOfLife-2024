@@ -10,13 +10,13 @@ class GameOfLifeTest {
     public void nextGen() {
 
         GameOfLife game = new GameOfLife(5, 5);
-        game.grid = new int[][]{
+        game.setGrid(new int[][]{
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 1, 1, 1, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0}
-        };
+        });
 
         game.nextGen();
         String actual = game.toString();

@@ -3,7 +3,7 @@ package levy.gameoflife;
 public class GameOfLife {
     private int width;
     private int height;
-    int[][] grid;
+    private int[][] grid;
 
     public GameOfLife(int width, int height) {
         this.width = width;
@@ -11,11 +11,14 @@ public class GameOfLife {
         grid = new int[height][width];
     }
 
+    public void setGrid(int[][] newGrid) {
+        this.grid = newGrid;
+    }
+
     public int[][] getGrid() {
         return grid;
     }
 
-    //next gen method
     public void nextGen() {
         int[][] newGrid = new int[height][width];
 
@@ -30,13 +33,15 @@ public class GameOfLife {
                     } else {
                         newGrid[i][j] = 1;
                     }
-                } else if (liveNeighbors == 3) {
-                    newGrid[i][j] = 1;
+                } else {
+                    if (liveNeighbors == 3) {
+                        newGrid[i][j] = 1;
+                    }
                 }
             }
         }
 
-        //new gen
+        // new generation
         grid = newGrid;
     }
 
@@ -45,9 +50,7 @@ public class GameOfLife {
         int count = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0) {
-                    continue;
-                }
+                if (i == 0 && j == 0) continue;
                 int newX = x + i;
                 int newY = y + j;
                 if (isInBounds(newX, newY) && grid[newX][newY] == 1) {
@@ -55,6 +58,7 @@ public class GameOfLife {
                 }
             }
         }
+
         return count;
     }
 
@@ -74,6 +78,4 @@ public class GameOfLife {
         }
         return sb.toString();
     }
-
 }
-
