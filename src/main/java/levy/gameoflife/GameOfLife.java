@@ -15,9 +15,6 @@ public class GameOfLife {
         this.grid = newGrid;
     }
 
-    public int[][] getGrid() {
-        return grid;
-    }
 
     public void nextGen() {
         int[][] newGrid = new int[height][width];
