@@ -22,12 +22,9 @@ public class GameOfLife {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 int liveNeighbors = countLiveNeighbors(i, j);
-
-                // rules
+                //rules
                 if (grid[i][j] == 1) {
-                    if (liveNeighbors < 2 || liveNeighbors > 3) {
-                        newGrid[i][j] = 0;
-                    } else {
+                    if (liveNeighbors == 2 || liveNeighbors == 3) {
                         newGrid[i][j] = 1;
                     }
                 } else if (liveNeighbors == 3) {
@@ -35,10 +32,10 @@ public class GameOfLife {
                 }
             }
         }
-
         //new gen
         grid = newGrid;
     }
+
 
 
     // count live neighbors
