@@ -22,20 +22,17 @@ public class GameOfLife {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 int liveNeighbors = countLiveNeighbors(i, j);
-                //rules
+
                 if (grid[i][j] == 1) {
-                    if (liveNeighbors == 2 || liveNeighbors == 3) {
-                        newGrid[i][j] = 1;
-                    }
-                } else if (liveNeighbors == 3) {
-                    newGrid[i][j] = 1;
+                    newGrid[i][j] = (liveNeighbors == 2 || liveNeighbors == 3) ? 1 : 0;
+                } else {
+                    newGrid[i][j] = (liveNeighbors == 3) ? 1 : 0;
                 }
             }
         }
         //new gen
         grid = newGrid;
     }
-
 
 
     // count live neighbors
