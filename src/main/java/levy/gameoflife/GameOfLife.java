@@ -26,17 +26,16 @@ public class GameOfLife {
                 // rules
                 if (grid[i][j] == 1) {
                     if (liveNeighbors < 2 || liveNeighbors > 3) {
-                        newGrid[i][j] = 0;
                     } else {
                         newGrid[i][j] = 1;
                     }
-                } else {
-                    if (liveNeighbors == 3) {
-                        newGrid[i][j] = 1;
-                    }
+                } else if (liveNeighbors == 3) {
+                    newGrid[i][j] = 1;
                 }
+
             }
-        }
+            }
+
 
         // new generation
         grid = newGrid;
