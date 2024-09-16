@@ -2,8 +2,6 @@ package levy.gameoflife;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class GameOfLifeComponent extends JComponent {
 
@@ -12,10 +10,9 @@ public class GameOfLifeComponent extends JComponent {
     public GameOfLifeComponent(GameOfLife game) {
         this.game = game;
 
-
-        addMouseListener(new MouseAdapter() {
+        addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(java.awt.event.MouseEvent e) {
                 int row = e.getY() / 10;
                 int col = e.getX() / 10;
 
@@ -26,10 +23,9 @@ public class GameOfLifeComponent extends JComponent {
             }
         });
 
-
-        addMouseMotionListener(new MouseAdapter() {
+        addMouseMotionListener(new java.awt.event.MouseAdapter() {
             @Override
-            public void mouseDragged(MouseEvent e) {
+            public void mouseDragged(java.awt.event.MouseEvent e) {
                 int row = e.getY() / 10;
                 int col = e.getX() / 10;
 
@@ -39,28 +35,27 @@ public class GameOfLifeComponent extends JComponent {
                 }
             }
         });
-
-        Timer timer = new Timer(1000, e -> {
-            game.nextGen();
-            repaint();
-        });
-        timer.start();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, getWidth(), getHeight());
 
+        g.setColor(Color.BLACK);
         for (int i = 0; i < game.getHeight(); i++) {
             for (int j = 0; j < game.getWidth(); j++) {
                 if (game.getCellState(i, j) == 1) {
-                    g.setColor(Color.BLACK);
-                } else {
-                    g.setColor(Color.WHITE);
+                    g.fillRect(j * 10, i * 10, 10, 10);
                 }
-                g.fillRect(j * 10, i * 10, 10, 10);
-                g.setColor(Color.GRAY);
+            }
+        }
+
+        g.setColor(Color.GRAY);
+        for (int i = 0; i < game.getHeight(); i++) {
+            for (int j = 0; j < game.getWidth(); j++) {
                 g.drawRect(j * 10, i * 10, 10, 10);
             }
         }

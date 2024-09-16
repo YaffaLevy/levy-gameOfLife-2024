@@ -10,7 +10,11 @@ public class GameOfLife {
         this.height = height;
         grid = new int[height][width];
     }
-
+    public void setCell(int x, int y, int state) {
+        if (isInBounds(x, y)) {
+            grid[x][y] = state;
+        }
+    }
     public void setGrid(int[][] newGrid) {
         this.grid = newGrid;
     }
@@ -86,3 +90,5 @@ public class GameOfLife {
         return height;
     }
 }
+
+
