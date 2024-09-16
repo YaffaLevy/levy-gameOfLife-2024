@@ -23,8 +23,8 @@ public class GameOfLifeFrame extends JFrame {
         GameOfLifeComponent gameComponent = new GameOfLifeComponent(game);
         add(gameComponent, BorderLayout.CENTER);
 
-        JButton playButton = new JButton("\u25B6");
-        JButton pauseButton = new JButton("\u23F8");
+        JButton playButton = new JButton("►");
+        JButton pauseButton = new JButton("⏸");
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(playButton);

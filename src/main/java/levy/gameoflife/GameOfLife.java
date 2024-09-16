@@ -10,6 +10,7 @@ public class GameOfLife {
         this.height = height;
         grid = new int[height][width];
     }
+
     public void setCell(int x, int y, int state) {
         if (isInBounds(x, y)) {
             grid[x][y] = state;
