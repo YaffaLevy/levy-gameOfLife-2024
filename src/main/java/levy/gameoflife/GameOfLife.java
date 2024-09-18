@@ -11,14 +11,27 @@ public class GameOfLife {
         grid = new int[height][width];
     }
 
+    public void setCell(int x, int y, int state) {
+        if (isInBounds(x, y)) {
+            grid[x][y] = state;
+        }
+    }
     public void setGrid(int[][] newGrid) {
         this.grid = newGrid;
     }
 
 
+    public int getCellState(int x, int y) {
+        return grid[x][y];
+    }
+
+    public void toggleCellState(int x, int y) {
+        grid[x][y] = (grid[x][y] == 1) ? 0 : 1;
+    }
+
     public void nextGen() {
         int[][] newGrid = new int[height][width];
-
+        //rules
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 int liveNeighbors = countLiveNeighbors(i, j);
@@ -34,8 +47,7 @@ public class GameOfLife {
         grid = newGrid;
     }
 
-
-    // count live neighbors
+    // Count live neighbors
     private int countLiveNeighbors(int x, int y) {
         int count = 0;
         for (int i = -1; i <= 1; i++) {
@@ -54,11 +66,10 @@ public class GameOfLife {
         return count;
     }
 
-    // checks bounds
-    private boolean isInBounds(int x, int y) {
+
+    public boolean isInBounds(int x, int y) {
         return x >= 0 && x < height && y >= 0 && y < width;
     }
-
 
     @Override
     public String toString() {
@@ -71,4 +82,14 @@ public class GameOfLife {
         }
         return sb.toString();
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
+
+
