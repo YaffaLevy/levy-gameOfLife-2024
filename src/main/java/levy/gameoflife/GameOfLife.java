@@ -62,8 +62,16 @@ public class GameOfLife {
         return x >= 0 && x < height && y >= 0 && y < width;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void loadFromRLE(String rleContent) {
-        RLEParser parser = new RLEParser();
+        RleParser parser = new RleParser();
         this.grid = parser.parse(rleContent);
         this.width = parser.width;
         this.height = parser.height;

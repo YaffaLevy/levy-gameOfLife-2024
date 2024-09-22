@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GameOfLifeTest {
 
     @Test
-    public void testRLEParsing() {
+    public void RleParser() {
         GameOfLife game = new GameOfLife(5, 5);
         String rleContent = """
             #C This is a glider.
@@ -23,9 +23,9 @@ class GameOfLifeTest {
 
 
         assertEquals(
-                "010\n" +
-                        "001\n" +
-                        "111\n",
+                "010\n"
+                        + "001\n"
+                        + "111\n",
                 actual
         );
     }

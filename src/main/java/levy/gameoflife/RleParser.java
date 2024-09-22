@@ -3,7 +3,7 @@ package levy.gameoflife;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RLEParser {
+public class RleParser {
     int width;
     int height;
     private int[][] grid;
@@ -11,7 +11,9 @@ public class RLEParser {
     public int[][] parse(String rleContent) {
         String[] lines = rleContent.split("\n");
         Pattern headerPattern = Pattern.compile("x\\s*=\\s*(\\d+),\\s*y\\s*=\\s*(\\d+)");
-        int currentRow = 0, currentCol = 0;
+        int currentRow = 0;
+        int currentCol = 0;
+
         boolean gridInitialized = false;
         for (String line : lines) {
             line = line.trim();
