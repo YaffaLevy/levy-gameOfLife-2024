@@ -1,6 +1,5 @@
 package levy.gameoflife;
 
-import levy.gameoflife.GameOfLife;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,7 +15,7 @@ class GameOfLifeTest {
         """;
 
 
-        game.loadFromRLE(rleContent);
+        game.loadFromRle(rleContent);
 
 
         String actual = game.toString();

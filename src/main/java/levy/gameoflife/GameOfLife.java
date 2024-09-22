@@ -49,10 +49,14 @@ public class GameOfLife {
         int count = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0) continue;
+                if (i == 0 && j == 0) {
+                    continue;
+                }
                 int newX = x + i;
                 int newY = y + j;
-                if (isInBounds(newX, newY) && grid[newX][newY] == 1) count++;
+                if (isInBounds(newX, newY) && grid[newX][newY] == 1) {
+                    count++;
+                }
             }
         }
         return count;
@@ -70,7 +74,7 @@ public class GameOfLife {
         return height;
     }
 
-    public void loadFromRLE(String rleContent) {
+    public void loadFromRle(String rleContent) {
         RleParser parser = new RleParser();
         this.grid = parser.parse(rleContent);
         this.width = parser.width;
