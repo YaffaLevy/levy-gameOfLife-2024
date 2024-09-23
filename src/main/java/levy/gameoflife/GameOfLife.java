@@ -77,8 +77,8 @@ public class GameOfLife {
     public void loadFromRle(String rleContent) {
         RleParser parser = new RleParser();
         this.grid = parser.parse(rleContent);
-        this.width = parser.width;
-        this.height = parser.height;
+        this.width = parser.getWidth();
+        this.height = parser.getHeight();
     }
 
     @Override

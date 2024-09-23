@@ -4,8 +4,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RleParser {
-    int width;
-    int height;
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    private int width;
+    private int height;
     private int[][] grid;
 
     public int[][] parse(String rleContent) {
@@ -58,7 +66,7 @@ public class RleParser {
             if (tag == 'o') {
                 grid[row][col++] = 1;
             } else if (tag == 'b') {
-                grid[row][col++] = 0;
+                col++;
             }
         }
         return col;
