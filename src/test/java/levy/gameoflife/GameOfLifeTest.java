@@ -1,10 +1,35 @@
 package levy.gameoflife;
 
-import levy.gameoflife.GameOfLife;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameOfLifeTest {
+
+    @Test
+    public void loadFromRle() {
+        GameOfLife game = new GameOfLife(5, 5);
+        String rleContent = """
+            #C This is a glider.
+            x = 3, y = 3
+            bo$2bo$3o!
+        """;
+
+
+        game.loadFromRle(rleContent);
+
+
+        String actual = game.toString();
+
+
+        assertEquals(
+                "010\n"
+                        + "001\n"
+                        + "111\n",
+                actual
+        );
+    }
+
+
 
     @Test
     public void nextGen() {
