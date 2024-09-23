@@ -4,14 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RleParser {
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     private int width;
     private int height;
     private int[][] grid;
@@ -22,39 +14,36 @@ public class RleParser {
         int currentRow = 0;
         int currentCol = 0;
 
-        boolean gridInitialized = false;
         for (String line : lines) {
             line = line.trim();
             if (line.startsWith("#")) {
                 continue;
             }
             Matcher matcher = headerPattern.matcher(line);
-            if (matcher.find() && !gridInitialized) {
+            if (matcher.find() && grid == null) {
                 this.width = Integer.parseInt(matcher.group(1));
                 this.height = Integer.parseInt(matcher.group(2));
                 this.grid = new int[height][width];
-                gridInitialized = true;
                 continue;
             }
 
-            StringBuilder digitBuilder = new StringBuilder();
             for (int i = 0; i < line.length(); i++) {
                 char ch = line.charAt(i);
 
                 if (Character.isDigit(ch)) {
-                    digitBuilder.append(ch);
-                } else {
-                    int runCount = digitBuilder.length() > 0 ? Integer.parseInt(digitBuilder.toString()) : 1;
-                    digitBuilder.setLength(0);
-
-                    if (ch == 'o' || ch == 'b') {
-                        currentCol = fillGrid(runCount, ch, currentCol, currentRow);
-                    } else if (ch == '$') {
-                        currentRow++;
-                        currentCol = 0;
-                    } else if (ch == '!') {
-                        return grid;
+                    int runCount = ch - '0';
+                    while (i + 1 < line.length() && Character.isDigit(line.charAt(i + 1))) {
+                        runCount = runCount * 10 + (line.charAt(++i) - '0');
                     }
+                    char tag = line.charAt(++i);
+                    currentCol = fillGrid(runCount, tag, currentCol, currentRow);
+                } else if (ch == 'o' || ch == 'b') {
+                    currentCol = fillGrid(1, ch, currentCol, currentRow);
+                } else if (ch == '$') {
+                    currentRow++;
+                    currentCol = 0;
+                } else if (ch == '!') {
+                    return grid;
                 }
             }
         }
@@ -70,5 +59,13 @@ public class RleParser {
             }
         }
         return col;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
