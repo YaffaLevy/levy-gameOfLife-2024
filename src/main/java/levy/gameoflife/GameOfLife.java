@@ -16,10 +16,10 @@ public class GameOfLife {
             grid[x][y] = state;
         }
     }
+
     public void setGrid(int[][] newGrid) {
         this.grid = newGrid;
     }
-
 
     public int getCellState(int x, int y) {
         return grid[x][y];
@@ -31,7 +31,6 @@ public class GameOfLife {
 
     public void nextGen() {
         int[][] newGrid = new int[height][width];
-        //rules
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 int liveNeighbors = countLiveNeighbors(i, j);
@@ -43,11 +42,9 @@ public class GameOfLife {
                 }
             }
         }
-        //new gen
         grid = newGrid;
     }
 
-    // Count live neighbors
     private int countLiveNeighbors(int x, int y) {
         int count = 0;
         for (int i = -1; i <= 1; i++) {
@@ -62,13 +59,26 @@ public class GameOfLife {
                 }
             }
         }
-
         return count;
     }
 
-
     public boolean isInBounds(int x, int y) {
         return x >= 0 && x < height && y >= 0 && y < width;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void loadFromRle(String rleContent) {
+        RleParser parser = new RleParser();
+        this.grid = parser.parse(rleContent);
+        this.width = parser.getWidth();
+        this.height = parser.getHeight();
     }
 
     @Override
@@ -82,14 +92,4 @@ public class GameOfLife {
         }
         return sb.toString();
     }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
 }
-
-
