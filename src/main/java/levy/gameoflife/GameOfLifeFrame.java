@@ -59,29 +59,19 @@ public class GameOfLifeFrame extends JFrame {
                 String clipboardContent = (String) Toolkit.getDefaultToolkit()
                         .getSystemClipboard()
                         .getData(DataFlavor.stringFlavor);
-                System.out.println("Clipboard Content: " + clipboardContent);
+                game.loadFromRle(clipboardContent);
 
-                if (isUrl(clipboardContent)) {
-                    InputStream in = new URL(clipboardContent).openStream();
-                    String rleContents = IOUtils.toString(in, "UTF-8");
-                    game.loadFromRle(rleContents);
-                } else if (isFilePath(clipboardContent)) {
-                    FileInputStream fisTargetFile = new FileInputStream(new File(clipboardContent));
-                    String rleContents = IOUtils.toString(fisTargetFile, "UTF-8");
-                    game.loadFromRle(rleContents);
-                } else {
 
-                    game.loadFromRle(clipboardContent);
-                }
-
-                repaint();
+                gameComponent.repaint();
+                this.repaint();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error reading clipboard content: " + ex.getMessage());
             }
         });
     }
 
-    private boolean isUrl(String content) {
+
+        private boolean isUrl(String content) {
         return content.startsWith("http://") || content.startsWith("https://");
     }
 
