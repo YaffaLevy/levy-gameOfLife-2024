@@ -1,10 +1,17 @@
 package levy.gameoflife;
 
 public class GameOfLife {
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     private int width;
     private int height;
     private int[][] grid;
-
     public GameOfLife(int width, int height) {
         this.width = width;
         this.height = height;
@@ -66,19 +73,24 @@ public class GameOfLife {
         return x >= 0 && x < height && y >= 0 && y < width;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     public void loadFromRle(String rleContent) {
         RleParser parser = new RleParser();
-        this.grid = parser.parse(rleContent);
-        this.width = parser.getWidth();
-        this.height = parser.getHeight();
+        int[][] newPattern = parser.parse(rleContent);
+
+        int patternWidth = parser.getWidth();
+        int patternHeight = parser.getHeight();
+
+        this.width = Math.max(this.width, patternWidth);
+        this.height = Math.max(this.height, patternHeight);
+        this.grid = new int[height][width];
+
+        int startX = (width - patternWidth) / 2;
+        int startY = (height - patternHeight) / 2;
+
+        for (int i = 0; i < patternHeight; i++) {
+            System.arraycopy(newPattern[i], 0, grid[startY + i], startX, patternWidth);
+        }
+
     }
 
     @Override
