@@ -13,7 +13,9 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation 'commons-io:commons-io:2.17.0'
-    testImplementation 'org.mockito:mockito-core:5.0.0'
+    testImplementation 'org.mockito:mockito-core:5.4.0' // Use the latest Mockito version
+    testImplementation 'net.bytebuddy:byte-buddy:1.12.22' // Use the latest Byte-Buddy version
+
 
 }
 

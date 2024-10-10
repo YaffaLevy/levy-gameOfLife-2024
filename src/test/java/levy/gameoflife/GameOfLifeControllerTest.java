@@ -59,8 +59,8 @@ class GameOfLifeControllerTest {
     @Test
 
     void pasteUrl() {
-        GameOfLife model = mock(GameOfLife.class);
-        GameOfLifeComponent view = mock(GameOfLifeComponent.class);
+        GameOfLife model = mock();
+        GameOfLifeComponent view = mock();
         GameOfLifeController controller = new GameOfLifeController(model, view);
 
         String url = "https://conwaylife.com/patterns/glider.rle";
