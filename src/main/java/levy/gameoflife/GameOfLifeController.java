@@ -34,7 +34,7 @@ public class GameOfLifeController {
             timer.stop();
         }
     }
-    public void paste() {
+    public void paste(String gliderRle) {
         try {
             String clipboardContents = (String) Toolkit.getDefaultToolkit()
                     .getSystemClipboard()

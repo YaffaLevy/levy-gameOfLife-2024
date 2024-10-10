@@ -6,10 +6,10 @@ import static org.mockito.Mockito.*;
 class GameOfLifeControllerTest {
 
     private static final String GLIDER_RLE = """
-            #C This is a glider.
-            x = 3, y = 3
-            bo$2bo$3o!
-            """;
+        #C This is a glider.
+        x = 3, y = 3
+        bo$2bo$3o!
+    """ .trim().replace("\n", "\r\n") + "\r\n";
 
     @Test
     void toggleCellOff() {
@@ -45,7 +45,7 @@ class GameOfLifeControllerTest {
         verify(view).repaint();
     }
 
-    @Test
+   @Test
     void pasteRle() {
         GameOfLife model = mock();
         GameOfLifeComponent view = mock();
@@ -56,8 +56,8 @@ class GameOfLifeControllerTest {
         verify(model).loadRleFromString(GLIDER_RLE);
         verify(view).repaint();
     }
-
     @Test
+
     void pasteUrl() {
         GameOfLife model = mock(GameOfLife.class);
         GameOfLifeComponent view = mock(GameOfLifeComponent.class);
