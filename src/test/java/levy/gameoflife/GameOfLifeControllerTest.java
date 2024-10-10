@@ -1,0 +1,74 @@
+package levy.gameoflife;
+
+import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.*;
+
+class GameOfLifeControllerTest {
+
+    private static final String GLIDER_RLE = """
+            #C This is a glider.
+            x = 3, y = 3
+            bo$2bo$3o!
+            """;
+
+    @Test
+    void toggleCellOff() {
+        GameOfLife model = mock();
+        GameOfLifeComponent view = mock();
+        GameOfLifeController controller = new GameOfLifeController(model, view);
+
+        doReturn(10).when(view).getCellSize();
+        doReturn(100).when(model).getWidth();
+        doReturn(100).when(model).getHeight();
+        doReturn(1).when(model).getCellState(5, 10);
+
+        controller.toggleCell(50, 100);
+
+        verify(model).setCell(5, 10, 0);
+        verify(view).repaint();
+    }
+
+    @Test
+    void toggleCellOn() {
+        GameOfLife model = mock();
+        GameOfLifeComponent view = mock();
+        GameOfLifeController controller = new GameOfLifeController(model, view);
+
+        doReturn(10).when(view).getCellSize();
+        doReturn(100).when(model).getWidth();
+        doReturn(100).when(model).getHeight();
+        doReturn(0).when(model).getCellState(5, 10);
+
+        controller.toggleCell(50, 100);
+
+        verify(model).setCell(5, 10, 1);
+        verify(view).repaint();
+    }
+
+    @Test
+    void pasteRle() {
+        GameOfLife model = mock();
+        GameOfLifeComponent view = mock();
+        GameOfLifeController controller = new GameOfLifeController(model, view);
+
+        controller.paste(GLIDER_RLE);
+
+        verify(model).loadRleFromString(GLIDER_RLE);
+        verify(view).repaint();
+    }
+
+    @Test
+    void pasteUrl() {
+        GameOfLife model = mock(GameOfLife.class);
+        GameOfLifeComponent view = mock(GameOfLifeComponent.class);
+        GameOfLifeController controller = new GameOfLifeController(model, view);
+
+        String url = "https://conwaylife.com/patterns/glider.rle";
+
+
+        controller.paste(url);
+
+        verify(model).loadRleFromString(GLIDER_RLE);
+        verify(view).repaint();
+    }
+}
