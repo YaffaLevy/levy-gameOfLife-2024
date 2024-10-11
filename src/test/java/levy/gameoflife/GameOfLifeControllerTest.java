@@ -68,7 +68,7 @@ class GameOfLifeControllerTest {
 
         controller.paste(url);
 
-        verify(model).loadRleFromString(GLIDER_RLE);
+        verify(model).loadRleFromString(url);
         verify(view).repaint();
     }
 }

@@ -34,12 +34,8 @@ public class GameOfLifeController {
             timer.stop();
         }
     }
-    public void paste(String gliderRle) {
+    public void paste(String clipboardContents) {
         try {
-            String clipboardContents = (String) Toolkit.getDefaultToolkit()
-                    .getSystemClipboard()
-                    .getData(DataFlavor.stringFlavor);
-
             if (clipboardContents.startsWith("http")) {
                 InputStream in = new URL(clipboardContents).openStream();
                 String rleContents = IOUtils.toString(in, StandardCharsets.UTF_8);
