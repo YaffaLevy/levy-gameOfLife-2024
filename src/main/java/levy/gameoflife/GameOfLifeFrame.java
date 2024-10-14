@@ -37,7 +37,7 @@ public class GameOfLifeFrame extends JFrame {
         });
 
         pasteButton.addActionListener((ActionEvent e) -> {
-            controller.startTimer();
+            controller.stopTimer();
         });
 
 

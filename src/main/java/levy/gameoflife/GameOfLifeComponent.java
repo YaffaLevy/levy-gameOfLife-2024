@@ -6,6 +6,7 @@ import java.awt.*;
 public class GameOfLifeComponent extends JComponent {
 
     private final GameOfLife game;
+
     private final int cellSize = 10;
 
     public GameOfLifeComponent(GameOfLife game) {
