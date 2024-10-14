@@ -20,6 +20,7 @@ public class GameOfLifeController {
         this.model = model;
         this.view = view;
     }
+
     public void startTimer() {
         if (timer == null || !timer.isRunning()) {
             timer = new Timer(1000, e -> {
@@ -29,11 +30,13 @@ public class GameOfLifeController {
             timer.start();
         }
     }
+
     public void stopTimer() {
         if (timer != null && timer.isRunning()) {
             timer.stop();
         }
     }
+
     public void paste(String clipboardContents) {
         try {
             if (clipboardContents.startsWith("http")) {
