@@ -1,6 +1,17 @@
 package levy.gameoflife;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class GameOfLife {
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     private int width;
     private int height;
     private int[][] grid;
@@ -66,19 +77,70 @@ public class GameOfLife {
         return x >= 0 && x < height && y >= 0 && y < width;
     }
 
-    public int getWidth() {
-        return width;
+    public void loadRle(String rleContent) {
+        String[] lines = rleContent.split("\n");
+        Pattern headerPattern = Pattern.compile("x\\s*=\\s*(\\d+),\\s*y\\s*=\\s*(\\d+)");
+        int currentRow = 0;
+        int currentCol = 0;
+
+        int patternWidth = 0;
+        int patternHeight = 0;
+        int[][] parsedGrid = null;
+
+        for (String line : lines) {
+            line = line.trim();
+            if (line.startsWith("#")) {
+                continue;
+            }
+
+            Matcher matcher = headerPattern.matcher(line);
+            if (matcher.find() && parsedGrid == null) {
+                patternWidth = Integer.parseInt(matcher.group(1));
+                patternHeight = Integer.parseInt(matcher.group(2));
+                parsedGrid = new int[patternHeight][patternWidth];
+                continue;
+            }
+
+            for (int i = 0; i < line.length(); i++) {
+                char ch = line.charAt(i);
+
+                if (Character.isDigit(ch)) {
+                    int runCount = ch - '0';
+                    while (i + 1 < line.length() && Character.isDigit(line.charAt(i + 1))) {
+                        runCount = runCount * 10 + (line.charAt(++i) - '0');
+                    }
+                    char tag = line.charAt(++i);
+                    currentCol = fillGrid(parsedGrid, runCount, tag, currentCol, currentRow);
+                } else if (ch == 'o' || ch == 'b') {
+                    currentCol = fillGrid(parsedGrid, 1, ch, currentCol, currentRow);
+                } else if (ch == '$') {
+                    currentRow++;
+                    currentCol = 0;
+                } else if (ch == '!') {
+                    break;
+                }
+            }
+        }
+
+        int offsetX = (this.width - patternWidth) / 2;
+        int offsetY = (this.height - patternHeight) / 2;
+
+        for (int i = 0; i < patternHeight; i++) {
+            for (int j = 0; j < patternWidth; j++) {
+                grid[offsetY + i][offsetX + j] = parsedGrid[i][j];
+            }
+        }
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public void loadFromRle(String rleContent) {
-        RleParser parser = new RleParser();
-        this.grid = parser.parse(rleContent);
-        this.width = parser.getWidth();
-        this.height = parser.getHeight();
+    private int fillGrid(int[][] grid, int runCount, char tag, int col, int row) {
+        for (int i = 0; i < runCount; i++) {
+            if (tag == 'o') {
+                grid[row][col++] = 1;
+            } else if (tag == 'b') {
+                col++;
+            }
+        }
+        return col;
     }
 
     @Override
