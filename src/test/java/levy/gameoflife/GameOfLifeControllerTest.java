@@ -67,12 +67,12 @@ class GameOfLifeControllerTest {
         GameOfLifeComponent view = mock();
         GameOfLifeController controller = new GameOfLifeController(model, view);
 
-        String url = "https://conwaylife.com/patterns/glider.rle";
+        String rle = "";
 
 
-        controller.paste(url);
+        controller.paste(rle);
 
-        verify(model).loadRle(GLIDER_RLE);
+        verify(model).loadRle("");
         verify(view).repaint();
     }
 }
