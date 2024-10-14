@@ -39,13 +39,13 @@ public class GameOfLifeController {
             if (clipboardContents.startsWith("http")) {
                 InputStream in = new URL(clipboardContents).openStream();
                 String rleContents = IOUtils.toString(in, StandardCharsets.UTF_8);
-                model.loadRleFromString(rleContents);
+                model.loadRle(rleContents);
             } else if (new File(clipboardContents).exists()) {
                 FileInputStream fisTargetFile = new FileInputStream(new File(clipboardContents));
                 String rleContents = IOUtils.toString(fisTargetFile, StandardCharsets.UTF_8);
-                model.loadRleFromString(rleContents);
+                model.loadRle(rleContents);
             } else {
-                model.loadRleFromString(clipboardContents);
+                model.loadRle(clipboardContents);
             }
 
             view.repaint();

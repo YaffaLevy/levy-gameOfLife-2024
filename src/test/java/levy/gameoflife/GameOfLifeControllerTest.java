@@ -1,15 +1,19 @@
 package levy.gameoflife;
 
 import org.junit.jupiter.api.Test;
+
 import static org.mockito.Mockito.*;
 
 class GameOfLifeControllerTest {
 
     private static final String GLIDER_RLE = """
-        #C This is a glider.
-        x = 3, y = 3
-        bo$2bo$3o!
-    """ .trim().replace("\n", "\r\n") + "\r\n";
+                #N Glider
+                #O Richard K. Guy
+                #C The smallest, most common, and first discovered spaceship. Diagonal, has period 4 and speed c/4.
+                #C www.conwaylife.com/wiki/index.php?title=Glider
+                x = 3, y = 3, rule = B3/S23
+                bob$2bo$3o!
+            """.trim().replace("\n", "\r\n") + "\r\n";
 
     @Test
     void toggleCellOff() {
@@ -45,7 +49,7 @@ class GameOfLifeControllerTest {
         verify(view).repaint();
     }
 
-   @Test
+    @Test
     void pasteRle() {
         GameOfLife model = mock();
         GameOfLifeComponent view = mock();
@@ -53,11 +57,11 @@ class GameOfLifeControllerTest {
 
         controller.paste(GLIDER_RLE);
 
-        verify(model).loadRleFromString(GLIDER_RLE);
+        verify(model).loadRle(GLIDER_RLE);
         verify(view).repaint();
     }
-    @Test
 
+    @Test
     void pasteUrl() {
         GameOfLife model = mock();
         GameOfLifeComponent view = mock();
@@ -68,7 +72,7 @@ class GameOfLifeControllerTest {
 
         controller.paste(url);
 
-        verify(model).loadRleFromString(url);
+        verify(model).loadRle(GLIDER_RLE);
         verify(view).repaint();
     }
 }

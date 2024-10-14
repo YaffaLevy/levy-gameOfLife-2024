@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+
+import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
 
 public class GameOfLifeFrame extends JFrame {
     private final GameOfLife game = new GameOfLife(100, 100);
@@ -29,33 +32,24 @@ public class GameOfLifeFrame extends JFrame {
         buttonPanel.add(pasteButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        playButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                controller.startTimer();
-            }
+        playButton.addActionListener((ActionEvent e) -> {
+            controller.startTimer();
         });
 
-        pauseButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                controller.stopTimer();
-            }
+        pasteButton.addActionListener((ActionEvent e) -> {
+            controller.startTimer();
         });
 
-        pasteButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                String clipboardContents = null;
-                try {
-                    clipboardContents = (String) Toolkit.getDefaultToolkit()
+
+        pasteButton.addActionListener((ActionEvent e) -> {
+            try {
+                    String clipboardContents = (String) Toolkit.getDefaultToolkit()
                             .getSystemClipboard()
                             .getData(DataFlavor.stringFlavor);
+                    controller.paste(clipboardContents);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                controller.paste(clipboardContents);
-            }
         });
 
     }

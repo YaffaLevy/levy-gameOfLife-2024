@@ -131,10 +131,6 @@ public class GameOfLife {
             }
         }
     }
-    public void loadRleFromString(String rleContent) {
-        loadRle(rleContent);
-    }
-
 
     private int fillGrid(int[][] grid, int runCount, char tag, int col, int row) {
         for (int i = 0; i < runCount; i++) {
