@@ -4,13 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GameOfLife {
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
 
     private int width;
     private int height;
@@ -26,8 +19,15 @@ public class GameOfLife {
         if (isInBounds(x, y)) {
             grid[x][y] = state;
         }
+
+    }
+    public int getWidth() {
+        return width;
     }
 
+    public int getHeight() {
+        return height;
+    }
     public void setGrid(int[][] newGrid) {
         this.grid = newGrid;
     }
@@ -130,6 +130,7 @@ public class GameOfLife {
                 grid[offsetY + i][offsetX + j] = parsedGrid[i][j];
             }
         }
+
     }
 
     private int fillGrid(int[][] grid, int runCount, char tag, int col, int row) {
@@ -142,6 +143,7 @@ public class GameOfLife {
         }
         return col;
     }
+
 
     @Override
     public String toString() {
